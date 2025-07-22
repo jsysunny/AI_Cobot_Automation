@@ -116,7 +116,8 @@ Vision model
 
 &nbsp;
 ## 4. 🧭 동작 흐름 요약
-<img width="667" height="835" alt="image" src="https://github.com/user-attachments/assets/7e238ec9-c625-43b2-9d43-9831b6a3fd47" />
+<img width="783" height="1131" alt="ROKEY_Pharmacy_detail drawio" src="https://github.com/user-attachments/assets/e68cf733-3392-4f3a-99f1-5344afc34456" />
+
 
 
 &nbsp;
