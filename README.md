@@ -141,11 +141,53 @@
 - 성능 지표:  
   - Accuracy = **1.00**  
 - 결과: OCR된 라벨 이미지를 정확하게 약 카테고리로 분류
-- 
+
 <img width="979" height="490" alt="image" src="https://github.com/user-attachments/assets/e71ab87e-50ae-4790-8da9-262e386c6833" />
 
-&nbsp;
+<img width="772" height="701" alt="image" src="https://github.com/user-attachments/assets/0881a9b6-bd4d-4b7a-87de-723dd089fecd" />
 
+&nbsp;
+**3. Segmentation (YOLOv11s)**  
+- 목적: 약 서랍 내부 의약품 패키지를 탐지 및 회전 각도 추정  
+- 모델: `yolov11s.pt`  
+- Dataset: 20장 → 증강하여 총 60장 (Train 70% / Val 30%)  
+- 하이퍼파라미터:  
+  - Epoch: 200  
+  - Batch size: 16  
+  - IOU threshold: 0.5  
+- 성능 지표:  
+  - mAP@0.5 ≈ **0.992 ~ 0.993**  
+
+
+###  🤧 [1. Cold]  
+- 탐지 클래스: `amoxicile_tab`, `ponstar_tab`  
+- mAP@0.5 = **0.993**
+
+![cold_loss](https://github.com/user-attachments/assets/1vM9Cx2qxdzyG5gTZUMicW)
+![cold_result](https://github.com/user-attachments/assets/1sU6RD5ZUiUzwXbTgB2KgL)
+
+---
+
+### 🤕 Dermatitis  
+- 탐지 클래스: `monodoxy_cap`, `ganakan_tab`  
+- mAP@0.5 = **0.992**
+
+![dermatitis_loss](https://github.com/user-attachments/assets/W6oUa35qAMuoHxC9BbzFtm)
+![dermatitis_result](https://github.com/user-attachments/assets/8XPftKM6nDxx3SVKgfg7a8)
+
+---
+
+### 🤢 Dyspepsia  
+- 탐지 클래스: `mogum_tab`, `medicostenter`, `nexilen_tab`  
+- mAP@0.5 = **0.992**
+
+*(이미지 삽입 위치)*
+
+---
+
+### 💩 Diarrhea  
+- 탐지 클래스: `otillen_tab`, `famodine`, `somnux_scop`  
+- mAP@0.5 = **0.992**
 &nbsp;
 ## 4. 🧭 동작 흐름 요약
 <img width="740" height="276" alt="image" src="https://github.com/user-attachments/assets/164a3641-52d8-489a-9c19-20ac57fe4375" />
