@@ -199,99 +199,205 @@
 
 <img width="400" height="400" alt="image" src="https://github.com/user-attachments/assets/12101f88-5f75-426c-90d3-277298caa9a6" />
 
+
+&nbsp;
+
+### 🗣 Voice model 
+
+#### 🎙 1. OpenWakeWord  
+- **모델명**: `hello_rokey_8332_32.tflite`  
+- **기능**: 웨이크워드 “hello rokey” 감지를 위한 TFLite 기반 모델  
+- **동작 방식**:  
+  - 0.1초 간격으로 마이크 입력 버퍼에서 오디오 청크 수신  
+  - `model.predict()`를 통해 inference 수행  
+  - confidence score ≥ 0.6 → 웨이크워드 감지로 간주  
+
+---
+
+#### 📝 2. OpenAI Whisper  
+- **모델명**: `whisper-1`  
+- **기능**: 녹음된 오디오 파일 (예: `input.wav`)을 텍스트로 변환 (STT)  
+
+---
+
+#### 🤖 3. GPT-4o  
+- **모델명**: `gpt-4o`  
+- **기능**:  
+  - 사용자의 음성 명령에서 의약품 이름 및 수량 추출  
+  - 의약품 종류 분류 (전문의약품 vs 일반의약품)  
+  - 증상 입력 시 약 추천  
+  - 약 설명 요청 시 효능·주의사항 안내  
+
+---
+
+#### 🔊 4. Microsoft Edge TTS  
+- **모델명**: `ko-KR-SunHiNeural`  
+- **기능**:  
+  - TTS(Text-to-Speech)를 통해 사용자에게 음성 안내 출력
+  
 &nbsp;
 ## 4. 🧭 동작 흐름 요약
 <img width="740" height="276" alt="image" src="https://github.com/user-attachments/assets/164a3641-52d8-489a-9c19-20ac57fe4375" />
 
 <img width="783" height="1131" alt="ROKEY_Pharmacy_detail drawio" src="https://github.com/user-attachments/assets/e68cf733-3392-4f3a-99f1-5344afc34456" />
 
+&nbsp;
+
+### 📋 전문의약품 노드 
+
+1. **사람 감지**  
+   - 초음파 센서 → robot  
+   - 상태 메시지: `state="detected"` ROS topic publish
+
+2. **QR 및 안내 음성 출력**  
+   - robot → vision (`detect_qr`)  
+   - robot → voice (처방전 안내 음성 출력)  
+   - `robot_state = "check_qr"`
+
+3. **QR 코드 인식**
+
+4. **서랍 텍스트 인식 위치 지정**  
+   - vision → robot (`qr_info`)
+
+5. **서랍 텍스트 인식 실행**  
+   - robot → vision  
+   - `robot_state = "check_text"`
+
+6. **서랍 열기 및 약 탐지 위치로 이동**  
+   - robot → 서랍 앞
+
+7. **약 위치 탐지 (YOLOv11)**  
+   - robot → vision  
+   - `robot_state = "detect_pill"`
+
+8. **약 위치로 이동 및 자세 정보 추출**  
+   - vision → robot  
+   - 결과값: (x, y, theta)
+
+9. **약 집기 + 비닐봉투에 담기 + 서랍 닫기**
+
+10. **복약 설명 음성 출력**  
+    - robot → voice (`task_state`)
 
 &nbsp;
-### 🗣 Voice model 
+
+### 📋 일반의약품 노드
+
+1. **사람 감지**  
+   - 초음파 센서 → robot  
+   - 상태 메시지: `state="detected"`
+
+2. **QR 인식 및 일반약 요청 음성 출력**  
+   - robot → vision / voice  
+   - `robot_state = "check_qr"`
+
+3. **음성 명령 수신 (의약품 요청)**  
+   - voice → robot  
+   - topic: `medicine`
+
+4. **로봇이 선반 앞으로 이동**
+
+5. **선반 인식 준비**  
+   - robot → vision  
+   - `robot_state = "shelf_state"`
+
+6. **약 위치 탐지 (YOLOv11)**  
+   - vision → robot  
+   - 결과: `medicine_loc`
+
+7. **약 pick & place**  
+   - robot → vision  
+   - `robot_state = "pick_medicine"`
+
+8. **외력 인식 시 로봇 순응 제어 실행 (Gripper Release)**
+
+9. **약 설명 음성 출력**  
+   - robot → voice (`task_state`)
 
 &nbsp;
-### 🏠 퇴근 모드
 
-0. **사용자 아이템 리스트**  
-   - 카드키, 껌, 지갑, 스낵, 텀블러
+### 💊 전문의약품 동작 과정
+1. 초음파로 사람 감지
+- 5~37cm 거리의 사용자가 3초 이상 머물면 감지
+- Moving average 필터 사용
 
-1. **홈 위치 대기**  
-   - Force 센서를 활용해 충돌 감지 상태에서 대기
+2. 처방전 QR 인식 자세 & 음성 안내
+- 로봇 동작은 `movejs`로 자연스럽게 연결
+- 음성 안내:
+  `안녕하세요. rokey약국입니다. QR을 스캔하거나 "hello rokey"를 말해주세요.`
 
-2. **수납 알고리즘 시작**  
-   - y축 방향 외력 감지 (Check Force Condition) → 수납 알고리즘 진입  
-   - 💬 음성 출력: `"Good night! Have a sweet dream"`  
-   - 📺 LCD 출력: `good night!`
+3. QR 찍기
+- 처방전 파싱 → QR 코드 생성
+- JSON 파일 내용: 이름, 주민등록번호, ATC 코드, 1회 투약량, 1일 투약 횟수, 총 투여일수
 
-3. **인사 동작 (Good night)**  
-   - `Move_periodic` 동작으로 인사 수행  
-   - 💬 음성 출력: `"Good night!"`  
-   - 📺 LCD 출력: `"Good night!"`
+예시: 
+정서윤 012340-4893726
+A02X1 1 1 1
+A07FA01 1 2 1
+A02AA04 1 3 1
 
-4. **사용자 입력**  
-   - 원하는 물체 및 선반 위치 입력  
-   - 예: `텀블러 1`
+4. 서랍 바라보는 모션
+- QR을 인식한 후 서랍 방향으로 자세 이동
 
-5. **물체 탐색**  
-   - ㄹ자 구조로 반복 탐색 수행  
-     - Movel 명령으로 x축 400mm, y축 50mm 탐색  
-   - 📺 LCD 출력: `"Searching"` Gage 애니메이션 표시
+5. 서랍 text 인식 후 열기
+- 처방전 ATC 코드, 이름, 증상을 딕셔너리 형태로 저장
+- YOLO로 텍스트 증상 인식
+- (x, y) 좌표를 기준으로 4개 서랍 중 하나로 이동
+-
 
-6. **물체 분류 및 Grip 동작**  
-   - 비동기 탐색 중 `Get tool force`로 외력 감지 → 물체 존재 확인  
-   - 📺 LCD 출력: `"grabbed object!: {Detected name}"`  
-   - 💬 음성 출력: `{Detected name}`  
-   - 순응제어로 z축 위치 파악 → `height_dict`와 비교하여 분류  
-   - `Release` → `Grip` 동작으로 물체 집기
+6. 서랍 안에 바라보는 위치
+- 4개의 서랍 segmentation 좌표로 이동
 
-7. **입력 위치에 물품 수납**  
-   - **비어있는 경우**: 원래 위치 (`placed_list`)에 수납  
-   - **이미 물건이 있는 경우**:  
-     - 예: `stacked = [1, 0, 0, 0]` → `stacked = [2, 0, 0, 0]`  
-     - x축으로 떨어진 지점에 수납  
-   - 📺 LCD 출력: `"Placed object: {Detected name}"`  
-   - 💬 음성 출력: `{Detected name}`
+7. 약 탐지
+- A02X1 1 1 1 → nexilen_tab 탐지
+- 타원형 → 2d center x, y, theta 전송
+- camera calibration → 3d 좌표로 로봇 이동
 
-8. **그리퍼 홈 위치 복귀**  
-   - 수납 완료 후, 그리퍼가 홈 위치로 이동하여 대기  
-   - 📺 LCD 출력: `"Request complete"`  
-   - 💬 음성 출력: `"Request complete"`
+8. 약 이동 점심
+- gripper 약약 크기에 맞춰 조정
+- force control과 compliance로 약약 세밀하게 집기
+- A02X1 1 1 1 → 1번 1번 투약 1일치 → nexilan_tab(index=1/total1) → 점심 이동
+- 흔드는 모션 → 약이 잘 떨어지지 않음 방지
 
-&nbsp;
-### 🚪 출근 모드
-0. **홈 위치 대기**  
-   - Force 센서를 활용해 충돌 감지 상태에서 대기
+9. 약 탐지
+- A07FA01 1 2 1 → medilacsenteric_tab 탐지
+- 타원형 캡슐 → center x, y, theta 전송
+- camera calibration → 3d 좌표로 로봇 이동
 
-1. **꺼내기 알고리즘 시작**  
-   - x축 방향 외력 감지 (Check Force Condition) → 꺼내기 알고리즘 진입  
-   - 💬 음성 출력: `"Have a nice day!"`  
-   - 📺 LCD 출력: `"Hello, Have a nice day!"`
+10. 약 이동 아침 저녁
+- gripper 약약 크기에 맞춰 조정
+- A07FA01 1 2 1 → 1번 2번 투약 1일치 →  
+  nexilan_tab(index=1/total2) → 아침  
+  nexilan_tab(index=2/total2) → 저녁
 
-2. **인사 동작 (Hello)**  
-   - `Move_periodic` 동작으로 인사 수행  
-   - 💬 음성 출력: `"Hello!"`  
-   - 📺 LCD 출력: `"Hello!"`
+11. 약 탐지
+- A02AA04 1 3 1 → magmil_tab 탐지
+- 원형 캡슐 → center x, y 전송 (원형은 theta 무시)
+- camera calibration → 3d 좌표로 로봇 이동
 
-3. **사용자 입력**  
-   - 원하는 물체 및 선반 위치 입력  
-   - 예: `텀블러 1`
+12. 약 이동 아침 점심 저녁
+- gripper 약약 크기에 맞춰 조정
+- A02AA04 1 3 1 → 1번 3번 투약 1일치  
+  magmil_tab(index=1/total3) → 아침  
+  magmil_tab(index=2/total3) → 점심  
+  magmil_tab(index=3/total3) → 저녁
 
-4. **물품 위치 비교 및 꺼내기**  
-   - **입력값과 위치가 일치하는 경우** → 해당 위치에서 물건 꺼냄  
-     - 📺 LCD 출력: `{Detected name} out`  
-     - 💬 음성 출력: `{Detected name}`  
-   - **불일치하는 경우** → 동작 수행하지 않음
+13. 선반 넣기
+- 로봇이 약약을 force control로 집음  
+→ 선반이 밑으로 내려감 → 잡고 올리기 모션 → 밀어넣기 모션
 
-5. **꺼낸 물품 배치**  
-   - 최대 5개까지 꺼낼 수 있음  
-   - 입력된 순서대로, 홈 위치에서 일정 간격으로 떨어진 위치에 배치
+14. 포장 대기 상태 이동
+- 모든 약 개수 약 주격으로 이동하면 포장 상태로 이동
 
-6. **그리퍼 홈 위치 복귀**  
-   - 꺼내기 완료 후, 그리퍼가 홈 위치로 복귀  
-   - 📺 LCD 출력: `"Request complete"`  
-   - 💬 음성 출력: `"Request complete"`
+15. 약사가 약 포장 후 외력
+- 약사가 약 검사 & 고데기로 약 비닐 포장
+- `check_force_condition` x축 외력 감지
 
-&nbsp;
+16. 약 봉투로 이동 및 해당 약 설명
+- `check_force_condition` x축 외력 감지  
+- voice_nexilan_tab:  
+  “해당 약은 위염치료제이며 다른 약 복용 시 위 손상을 막아줍니다. 감사합니다. 안녕히가세요.”
+  
 ## 5. 💻 코드 실행 방법
 
 ### 🤖 Robot Control Node
