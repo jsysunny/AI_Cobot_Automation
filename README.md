@@ -21,20 +21,21 @@
 
 ## 📑 목차
 
-1. [📌 프로젝트 개요](#1--프로젝트-개요)  
-2. [🔧 구성 요소](#2--구성-요소)  
-3. [💻 사용 기술](#3--사용-기술)  
-4. [🧭 동작 흐름 요약](#4--동작-흐름-요약)  
-5. [💻 코드 실행 방법](#5--코드-실행-방법)  
-6. [📷 시연 영상/이미지](#6--시연-영상--이미지)  
-7. [🌟 기대 효과/ 한계점 및 개선점](#7--기대-효과)  
+1. [📌 프로젝트 개요](#1--프로젝트-개요)
+2. [🔧 프로젝트 수행 절차 및 방법](#2--프로젝트-수행-절차-및-방법)  
+3. [🔧 구성 요소](#3--구성-요소)  
+4. [💻 사용 기술](#4--사용-기술)  
+5. [🧭 동작 흐름 요약](#5--동작-흐름-요약)  
+6. [💻 코드 실행 방법](#6--코드-실행-방법)  
+7. [📷 시연 영상/이미지](#7--시연-영상--이미지)  
+8. [🌟 기대 효과/ 한계점 및 개선점](#8--기대-효과)  
 
    
 &nbsp;
 ## 1. 📌 프로젝트 개요
 
 의약품의 조제와 복용은 사람의 생명과 직결되며, 그 정확성과 안전성이 매우 중요합니다.
-본 프로젝트 **RAAPS(Rokey Ai Automatic Pharmacy System)**는 AI Vision과 협동로봇(Cobot) 기술을 활용해 약 조제 과정의 오류를 방지하고, 고령층 및 의료인력 부족에 대응하는 스마트 약 복용 보조 시스템입니다.
+본 프로젝트 **RAAPS(Rokey Ai Automatic Pharmacy System)** 는 AI Vision과 협동로봇(Cobot) 기술을 활용해 약 조제 과정의 오류를 방지하고, 고령층 및 의료인력 부족에 대응하는 스마트 약 복용 보조 시스템입니다.
 
 
 &nbsp;
@@ -64,11 +65,15 @@
   - 고령자 복약 도우미
   - 지역 약국의 자동 조제 시스템 등
     
--향후 RAAPS는 스마트 병원, 무인 약국, 고령자 복약 지원 로봇 등 다양한 영역에 확대 적용 가능성이 있으며,
+- 향후 RAAPS는 스마트 병원, 무인 약국, 고령자 복약 지원 로봇 등 다양한 영역에 확대 적용 가능성이 있으며,
 특히 의료 인력 부족 및 고령화 사회 문제에 실질적인 해결책을 제시할 수 있습니다.
 
 &nbsp;
-## 2. 🔧 구성 요소
+## 2. 🔧 프로젝트 수행 절차 및 방법 
+<img width="1225" height="734" alt="image" src="https://github.com/user-attachments/assets/808cfce9-ff99-4337-b135-b82a6afbee5b" />
+
+&nbsp;
+## 3. 🔧 구성 요소
 
 | 구성 요소 | 설명 |
 |-----------|------|
@@ -80,9 +85,17 @@
 | 📶 **초음파 센서** | 사용자 존재 감지용 거리 센서 |
 | 💊 **약 선반 및 서랍** | 일반/전문의약품 분리 저장 구조 |
 
+<img width="748" height="324" alt="image" src="https://github.com/user-attachments/assets/e4a60790-c55f-4fd2-a668-3910116ce96c" />
+
+<img width="586" height="341" alt="image" src="https://github.com/user-attachments/assets/7eb2deb0-e2f3-46b2-b2a5-7b268564ac44" />
+
+<img width="670" height="375" alt="image" src="https://github.com/user-attachments/assets/a5e5671f-8083-45bc-ba5b-1c425687560c" />
+
+<img width="789" height="308" alt="image" src="https://github.com/user-attachments/assets/7aa27063-67d8-4f0d-b1dc-a6c906ab3975" />
+
 
 &nbsp;
-## 3. 💻 사용 기술
+## 4. 💻 사용 기술
 
 | 기술 | 내용 |
 |------|------|
@@ -94,10 +107,12 @@
 | 🧠 **AI 모델** | GPT-4o 기반 복약 설명/질의 응답, 증상-약 분류 |
 | 🧪 **로봇 제어** | Force Sensor 기반 순응 제어, DSR ROS2 API 사용 |
 
+Vision model 
+
 &nbsp;
 ## 4. 🧭 동작 흐름 요약
-<img width="600" height="224" alt="image" src="https://github.com/user-attachments/assets/f9b3e453-4a83-46d6-85bd-8abab347f9d9" />
-<img width="600" height="1463" alt="image" src="https://github.com/user-attachments/assets/059756fc-f98b-4823-a8c3-b05fa19cbf83" />
+<img width="632" height="792" alt="image" src="https://github.com/user-attachments/assets/fab91525-db4b-451f-b6b4-4089015c041e" />
+
 
 &nbsp;
 ### 🏠 퇴근 모드
