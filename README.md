@@ -111,11 +111,37 @@
 | 🧠 **AI 모델** | GPT-4o 기반 복약 설명/질의 응답, 증상-약 분류 |
 | 🧪 **로봇 제어** | Force Sensor 기반 순응 제어, DSR ROS2 API 사용 |
 
-Vision model 
+### 📷 Vision model 
+**1. Object Detection (YOLOv11)**  
+- 목적: 약 서랍의 라벨 텍스트(예: dermatitis, cold 등)를 박스 단위로 탐지  
+- 모델: `yolov11n.pt`  
+- Dataset: 20장 → 증강하여 총 60장 (Train 70% / Val 30%)  
+- 하이퍼파라미터:  
+  - Epoch: 200  
+  - Batch size: 16  
+  - IOU threshold: 0.5  
+- 성능 지표:  
+  - mAP@0.5 = **0.995**  
+- 결과: 약 서랍 위에 부착된 라벨을 정확히 탐지하여 위치 기반 분류 가능  
 
+<img width="908" height="681" alt="image" src="https://github.com/user-attachments/assets/8e911d69-6535-48f5-a8ee-90e72b922055" />
+
+**2. Text Classification (ResNet18)**  
+- 목적: 탐지된 라벨 이미지(text 박스)를 4종류 약 분류로 분류  
+- 약 종류: cold, dermatitis, dyspepsia, diarrhea  
+- 모델: `ResNet18`  
+- Dataset: 20장 → 증강하여 총 80장  
+- 하이퍼파라미터:  
+  - Epoch: 22  
+- 성능 지표:  
+  - Accuracy = **1.00**  
+- 결과: OCR된 라벨 이미지를 정확하게 약 카테고리로 분류  
+|
 
 &nbsp;
 ## 4. 🧭 동작 흐름 요약
+<img width="740" height="276" alt="image" src="https://github.com/user-attachments/assets/164a3641-52d8-489a-9c19-20ac57fe4375" />
+
 <img width="783" height="1131" alt="ROKEY_Pharmacy_detail drawio" src="https://github.com/user-attachments/assets/e68cf733-3392-4f3a-99f1-5344afc34456" />
 
 
