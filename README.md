@@ -126,11 +126,12 @@
   - mAP@0.5 = **0.995**  
 - 결과: 약 서랍 위에 부착된 라벨을 정확히 탐지하여 위치 기반 분류 가능  
 
-<img width="1115" height="590" alt="image" src="https://github.com/user-attachments/assets/66f84a6b-4087-4709-824d-bd150fb0c091" />
+<img width="600" height="300" alt="image" src="https://github.com/user-attachments/assets/66f84a6b-4087-4709-824d-bd150fb0c091" />
 
-<img width="600" height="681" alt="image" src="https://github.com/user-attachments/assets/8e911d69-6535-48f5-a8ee-90e72b922055" />
+<img width="400" height="400" alt="image" src="https://github.com/user-attachments/assets/8e911d69-6535-48f5-a8ee-90e72b922055" />
 
 &nbsp;
+
 **2. Text Classification (ResNet18)**  
 - 목적: 탐지된 라벨 이미지(text 박스)를 4종류 약 분류로 분류  
 - 약 종류: cold, dermatitis, dyspepsia, diarrhea  
@@ -142,11 +143,12 @@
   - Accuracy = **1.00**  
 - 결과: OCR된 라벨 이미지를 정확하게 약 카테고리로 분류
 
-<img width="979" height="490" alt="image" src="https://github.com/user-attachments/assets/e71ab87e-50ae-4790-8da9-262e386c6833" />
+<img width="600" height="300" alt="image" src="https://github.com/user-attachments/assets/e71ab87e-50ae-4790-8da9-262e386c6833" />
 
-<img width="772" height="701" alt="image" src="https://github.com/user-attachments/assets/0881a9b6-bd4d-4b7a-87de-723dd089fecd" />
+<img width="400" height="400" alt="image" src="https://github.com/user-attachments/assets/0881a9b6-bd4d-4b7a-87de-723dd089fecd" />
 
 &nbsp;
+
 **3. Segmentation (YOLOv11s)**  
 - 목적: 약 서랍 내부 의약품 패키지를 탐지 및 회전 각도 추정  
 - 모델: `yolov11s.pt`  
@@ -158,36 +160,45 @@
 - 성능 지표:  
   - mAP@0.5 ≈ **0.992 ~ 0.993**  
 
-
 ###  🤧 [1. Cold]  
 - 탐지 클래스: `amoxicile_tab`, `ponstar_tab`  
 - mAP@0.5 = **0.993**
 
-![cold_loss](https://github.com/user-attachments/assets/1vM9Cx2qxdzyG5gTZUMicW)
-![cold_result](https://github.com/user-attachments/assets/1sU6RD5ZUiUzwXbTgB2KgL)
+<img width="600" height="300" alt="image" src="https://github.com/user-attachments/assets/8b037393-0f9a-4d26-9057-0d45f7e7565d" />
+
+<img width="400" height="400" alt="image" src="https://github.com/user-attachments/assets/5c5dcb3d-b395-46d7-a0c6-c1176115ed90" />
 
 ---
 
-### 🤕 Dermatitis  
+### 🤕 [2.Dermatitis]  
 - 탐지 클래스: `monodoxy_cap`, `ganakan_tab`  
 - mAP@0.5 = **0.992**
 
-![dermatitis_loss](https://github.com/user-attachments/assets/W6oUa35qAMuoHxC9BbzFtm)
-![dermatitis_result](https://github.com/user-attachments/assets/8XPftKM6nDxx3SVKgfg7a8)
+<img width="600" height="300" alt="image" src="https://github.com/user-attachments/assets/307c1f0a-282a-494d-b599-4d93ee1b6a0a" />
+
+<img width="400" height="400" alt="image" src="https://github.com/user-attachments/assets/1057fded-ca00-4450-acf2-76cc6cb6fdb8" />
+
 
 ---
 
-### 🤢 Dyspepsia  
+### 🤢 [3.Dyspepsia]  
 - 탐지 클래스: `mogum_tab`, `medicostenter`, `nexilen_tab`  
 - mAP@0.5 = **0.992**
 
-*(이미지 삽입 위치)*
+<img width="600" height="300" alt="image" src="https://github.com/user-attachments/assets/e7440bc4-85fe-4044-a7bc-4d44d5a025e5" />
+
+<img width="400" height="400" alt="image" src="https://github.com/user-attachments/assets/ba31c0f3-0e59-4341-ab07-5a2da85ebbef" />
 
 ---
 
-### 💩 Diarrhea  
+### 💩 [4.Diarrhea]  
 - 탐지 클래스: `otillen_tab`, `famodine`, `somnux_scop`  
 - mAP@0.5 = **0.992**
+
+<img width="600" height="300" alt="image" src="https://github.com/user-attachments/assets/65cdba23-eee7-4705-8c98-2864ebea89bc" />
+
+<img width="400" height="400" alt="image" src="https://github.com/user-attachments/assets/12101f88-5f75-426c-90d3-277298caa9a6" />
+
 &nbsp;
 ## 4. 🧭 동작 흐름 요약
 <img width="740" height="276" alt="image" src="https://github.com/user-attachments/assets/164a3641-52d8-489a-9c19-20ac57fe4375" />
@@ -195,6 +206,8 @@
 <img width="783" height="1131" alt="ROKEY_Pharmacy_detail drawio" src="https://github.com/user-attachments/assets/e68cf733-3392-4f3a-99f1-5344afc34456" />
 
 
+&nbsp;
+### 🗣 Voice model 
 
 &nbsp;
 ### 🏠 퇴근 모드
