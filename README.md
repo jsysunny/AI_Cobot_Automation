@@ -87,6 +87,7 @@
 | 📶 **HC-SRO4 Ultrasonic Sensor** | 사용자 존재 감지용 초음파 거리 센서 |
 | 💡 **Raspberry Pi 4 (4GB)** | ROS2 기반 로컬 컨트롤러, LCD 및 스피커 통신 제어 |
 
+&nbsp;
 <img width="1300" height="605" alt="image" src="https://github.com/user-attachments/assets/b5a3aa08-b525-4cba-a151-5d121134610d" />
 
 <img width="789" height="308" alt="image" src="https://github.com/user-attachments/assets/7aa27063-67d8-4f0d-b1dc-a6c906ab3975" />
@@ -111,6 +112,7 @@
 | 🧠 **AI 모델** | GPT-4o 기반 복약 설명/질의 응답, 증상-약 분류 |
 | 🧪 **로봇 제어** | Force Sensor 기반 순응 제어, DSR ROS2 API 사용 |
 
+&nbsp;
 ### 📷 Vision model 
 **1. Object Detection (YOLOv11)**  
 - 목적: 약 서랍의 라벨 텍스트(예: dermatitis, cold 등)를 박스 단위로 탐지  
@@ -124,8 +126,11 @@
   - mAP@0.5 = **0.995**  
 - 결과: 약 서랍 위에 부착된 라벨을 정확히 탐지하여 위치 기반 분류 가능  
 
-<img width="908" height="681" alt="image" src="https://github.com/user-attachments/assets/8e911d69-6535-48f5-a8ee-90e72b922055" />
+<img width="1115" height="590" alt="image" src="https://github.com/user-attachments/assets/66f84a6b-4087-4709-824d-bd150fb0c091" />
 
+<img width="600" height="681" alt="image" src="https://github.com/user-attachments/assets/8e911d69-6535-48f5-a8ee-90e72b922055" />
+
+&nbsp;
 **2. Text Classification (ResNet18)**  
 - 목적: 탐지된 라벨 이미지(text 박스)를 4종류 약 분류로 분류  
 - 약 종류: cold, dermatitis, dyspepsia, diarrhea  
@@ -135,8 +140,11 @@
   - Epoch: 22  
 - 성능 지표:  
   - Accuracy = **1.00**  
-- 결과: OCR된 라벨 이미지를 정확하게 약 카테고리로 분류  
-|
+- 결과: OCR된 라벨 이미지를 정확하게 약 카테고리로 분류
+- 
+<img width="979" height="490" alt="image" src="https://github.com/user-attachments/assets/e71ab87e-50ae-4790-8da9-262e386c6833" />
+
+&nbsp;
 
 &nbsp;
 ## 4. 🧭 동작 흐름 요약
