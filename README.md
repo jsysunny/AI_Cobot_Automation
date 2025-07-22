@@ -77,13 +77,20 @@
 
 | 구성 요소 | 설명 |
 |-----------|------|
-| 🤖 **Doosan M0609 협동로봇** | 의약품 선반 간 이동 및 약 그리핑 수행 |
-| ✋ **OnRobot RG2 Gripper** | 다양한 크기의 의약품을 정밀하게 집기 위한 그리퍼 |
+
+| 💊 **약 재료** | 일반/전문의약품 |
+| **약 선반 및 서랍** | 일반/전문의약품 분리 저장 구조 |
 | 👁 **Intel RealSense D435i, C270 Webcam** | 약 탐지 및 서랍/QR 인식을 위한 RGB-D 카메라 |
-| 📢 **Bluetooth Speaker + 마이크** | AI 음성 인터랙션(음성 안내 및 명령 인식) |
+| 🎤 **Logitech HD Webcam C270** | AI 음성 인터랙션(마이크:음성 명령 인식) |
+| 📢 **Bluetooth Speaker** | AI 음성 인터랙션(스피커:음성 안내 출력) |
+| ✋ **OnRobot RG2 Gripper** | 다양한 크기의 의약품을 정밀하게 집기 위한 그리퍼 |
+| 🤖 **Doosan M0609 협동로봇** | 의약품 선반 간 이동 및 약 그리핑 수행 |
+| 📶 **HC-SRO4 Ultrasonic Sensor** | 사용자 존재 감지용 초음파 거리 센서 |
 | 💡 **Raspberry Pi 4 (4GB)** | ROS2 기반 로컬 컨트롤러, LCD 및 스피커 통신 제어 |
-| 📶 **초음파 센서** | 사용자 존재 감지용 거리 센서 |
-| 💊 **약 선반 및 서랍** | 일반/전문의약품 분리 저장 구조 |
+
+<img width="1300" height="605" alt="image" src="https://github.com/user-attachments/assets/b5a3aa08-b525-4cba-a151-5d121134610d" />
+
+<img width="789" height="308" alt="image" src="https://github.com/user-attachments/assets/7aa27063-67d8-4f0d-b1dc-a6c906ab3975" />
 
 <img width="748" height="324" alt="image" src="https://github.com/user-attachments/assets/e4a60790-c55f-4fd2-a668-3910116ce96c" />
 
@@ -91,7 +98,6 @@
 
 <img width="670" height="375" alt="image" src="https://github.com/user-attachments/assets/a5e5671f-8083-45bc-ba5b-1c425687560c" />
 
-<img width="789" height="308" alt="image" src="https://github.com/user-attachments/assets/7aa27063-67d8-4f0d-b1dc-a6c906ab3975" />
 
 
 &nbsp;
@@ -111,7 +117,6 @@ Vision model
 
 &nbsp;
 ## 4. 🧭 동작 흐름 요약
-<img width="632" height="792" alt="image" src="https://github.com/user-attachments/assets/fab91525-db4b-451f-b6b4-4089015c041e" />
 
 
 &nbsp;
