@@ -77,7 +77,6 @@
 
 | 구성 요소 | 설명 |
 |-----------|------|
-
 | 💊 **약 재료** | 일반/전문의약품 |
 | **약 선반 및 서랍** | 일반/전문의약품 분리 저장 구조 |
 | 👁 **Intel RealSense D435i, C270 Webcam** | 약 탐지 및 서랍/QR 인식을 위한 RGB-D 카메라 |
@@ -99,7 +98,6 @@
 <img width="670" height="375" alt="image" src="https://github.com/user-attachments/assets/a5e5671f-8083-45bc-ba5b-1c425687560c" />
 
 
-
 &nbsp;
 ## 4. 💻 사용 기술
 
@@ -115,8 +113,10 @@
 
 Vision model 
 
+
 &nbsp;
 ## 4. 🧭 동작 흐름 요약
+<img width="667" height="835" alt="image" src="https://github.com/user-attachments/assets/7e238ec9-c625-43b2-9d43-9831b6a3fd47" />
 
 
 &nbsp;
