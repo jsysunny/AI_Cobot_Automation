@@ -1,0 +1,13 @@
+train: ../train/images
+val: ../valid/images
+test: ../test/images
+
+nc: 4
+names: ['bandage', 'codaewon_syrup', 'sore_patch', 'tylenol']
+
+roboflow:
+  workspace: rokeyproject2
+  project: shelf-o8h9j
+  version: 2
+  license: CC BY 4.0
+  url: https://universe.roboflow.com/rokeyproject2/shelf-o8h9j/dataset/2

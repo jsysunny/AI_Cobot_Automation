@@ -1,0 +1,4 @@
+- 학습 설정
+epoch: 200, batch: 16
+train: 0.7(41 img), val: 0.3(6 img), test: 0.0
+model: yolo11s

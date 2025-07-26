@@ -1,0 +1,13 @@
+train: ../train/images
+val: ../train/images
+test: ../test/images
+
+nc: 1
+names: ['text']
+
+roboflow:
+  workspace: rokeyproject2
+  project: text_ocr-nlovm
+  version: 2
+  license: CC BY 4.0
+  url: https://universe.roboflow.com/rokeyproject2/text_ocr-nlovm/dataset/2

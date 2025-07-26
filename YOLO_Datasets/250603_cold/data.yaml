@@ -1,0 +1,13 @@
+train: ../train/images
+val: ../valid/images
+test: ../test/images
+
+nc: 3
+names: ['amoxicle_tab', 'panstar_tab', 'sudafed_tab']
+
+roboflow:
+  workspace: rokeyproject2
+  project: cold-v57tu
+  version: 2
+  license: CC BY 4.0
+  url: https://universe.roboflow.com/rokeyproject2/cold-v57tu/dataset/2
