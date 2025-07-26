@@ -71,6 +71,7 @@
 &nbsp;
 ## 2. 🔧 프로젝트 수행 절차 및 방법 
 <img width="1225" height="734" alt="image" src="https://github.com/user-attachments/assets/808cfce9-ff99-4337-b135-b82a6afbee5b" />
+팀원: 백홍하, 정서윤, 정민섭, 서형원
 
 &nbsp;
 ## 3. 🔧 구성 요소
@@ -413,32 +414,92 @@
              감사합니다 안녕히 가세요"
       ```
 
-  
+### 🧾 일반의약품 동작 과정
+
+1. **초음파로 사람 감지**  
+   - 5~37cm 거리에서 사용자가 3초 이상 머물면 감지  
+   - moving average 필터 사용  
+   - 로봇에 메시지 전송: `state="detected"`
+
+2. **QR 인식 자세 안내 및 음성 출력**  
+   - 로봇의 동작은 모두 `moves`로 자연스럽게 연결  
+   - 음성 안내:  
+     ```
+     voice: "안녕하세요 rokey약국입니다. QR을 스캔하거나 hello rokey를 말해주세요."
+     ```
+
+3. **증상 입력 (voice: hello rokey)**  
+   - 사용자가 음성으로 증상 입력  
+   - 예시:  
+     ```
+     "나 머리 아파 / 열이 나 / 감기 걸린 것 같아"
+     ```
+
+4. **voice 기반 의약품 추천**  
+   - 증상 기반 추천 음성 출력  
+   - 예시:  
+     ```
+     voice: "추천약은 타이레놀(해열진통제)과 판콜에이(감기약)입니다. 증상이 계속되면 병원에 방문하세요."
+     ```
+
+5. **voice로 추천 의약품 구매 의사 확인**  
+   - 사용자 예시:  
+     ```
+     "타이레놀 줄래요?"
+     ```  
+   - 로봇 응답:  
+     ```
+     "추천약은 타이레놀입니다. 어떤 약을 드릴까요?"
+     ```
+
+6. **voice로 의약품 구매 명령**  
+   - 사용자 예시:  
+     ```
+     "타이레놀 한 개 줘"
+     ```  
+   - 로봇 응답:  
+     ```
+     "타이레놀을 준비하겠습니다."
+     ```
+
+7. **선반 위치 이동 및 의약품 인식**  
+   - 선반 이동 후 YOLO로 의약품 위치 인식  
+   - 약품 좌표 (x, y)가 4분면 중 하나에 해당 → 지정 좌표로 이동  
+
+8. **의약품 꺼내기 및 가져다주기**  
+   - 물품 높이에 따라 그리퍼 너비 조정  
+   - 2층: `movec`로 문턱 넘기 -> movej
+   - 1층: `movej`  
+
+9. **x축 외력 감지 시 약 놓기 및 설명 출력**  
+   - 사용자가 손 흔들기 등으로 외력 제공  
+   - 조건 감지: `check_force_condition == true` (x축 외력 감지)  
+   - 로봇이 약 내려놓고 약 설명 출력  
+   - 예시:  
+     ```
+     voice: "해당 약은 해열진통제이며 진통 완화 및 열 내림 효과가 있습니다. 감사합니다 안녕히 가세요."
+     ```
+
 ## 5. 💻 코드 실행 방법
 
 ### 🤖 Robot Control Node
-- 코드: [`robot_control_node.py`](./rokey_project/rokey_project/robot_control_node.py)
+- 코드: [`main_robot_control`](./rokey_project/rokey_project/main_robot_control.py)
 
 ```bash
-ros2 run rokey_project robot_control_node
+ros2 run rokey_project main_robot_control
 ```
-### 🍓 Raspberry Pi Node
-- 코드: [`feedback_node.py`](./rokey_project/rokey_project/feedback_node.py)
+
+### 👁️ Vision Node (Realsense)
+- 코드: [`main_vision_realsense`](./rokey_project/rokey_project/main_vision_realsense.py)
 
 ```bash
-ros2 run rokey_project feedback_node
+ros2 run rokey_project main_vision_realsense
 ```
+
 &nbsp;
 ## 6. 📷 시연 영상 / 이미지
 > https://youtu.be/bbBvETzXTgY
 
-> <img width="600" height="415" alt="image" src="https://github.com/user-attachments/assets/52fde78e-1d48-4131-9ba5-a52d8baa4287" />
-
-> <img width="600" height="415" alt="image" src="https://github.com/user-attachments/assets/24839a30-8b8b-4170-aeda-596b4a016ea2" />
-
-> <img width="600" height="392" alt="image" src="https://github.com/user-attachments/assets/a3af83a5-ea75-4e62-b817-4eddd1cb01de" />
-
-> <img width="300" height="300" alt="image" src="https://github.com/user-attachments/assets/bfb44ccb-1988-4563-abb9-64399405e04d" />
 
 
 &nbsp;
