@@ -1,5 +1,5 @@
 # Doosan Robotics Boot Camp(2025.01.06 ~ 2025.07.06)
-## 1. ROKEY B-1조 협동-2 Project (ROS2를 활용한 로봇 자동화 공정 시스템 구현 프로젝트) AI_Cobot_Automation
+## 2. ROKEY B-1조 협동-2 Project (ROS2를 활용한 로봇 자동화 공정 시스템 구현 프로젝트) AI_Cobot_Automation
 &nbsp;
 ## 🧠 RAAPS : Rokey Ai Automatic Pharmacy System
 
