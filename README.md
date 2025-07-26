@@ -316,87 +316,103 @@
 
 &nbsp;
 
-### 💊 전문의약품 동작 과정
-1. 초음파로 사람 감지
-- 5~37cm 거리의 사용자가 3초 이상 머물면 감지
-- Moving average 필터 사용
+### 💊 전문의약품 동작 과정 
 
-2. 처방전 QR 인식 자세 & 음성 안내
-- 로봇 동작은 `movejs`로 자연스럽게 연결
-- 음성 안내:
-  `안녕하세요. rokey약국입니다. QR을 스캔하거나 "hello rokey"를 말해주세요.`
+1. **초음파로 사람 감지**  
+   - 5~37cm 거리에서 사용자가 3초 이상 머물면 감지  
+   - moving average 필터 사용  
+   - 로봇에 메시지 전송: state="detected"
 
-3. QR 찍기
-- 처방전 파싱 → QR 코드 생성
-- JSON 파일 내용: 이름, 주민등록번호, ATC 코드, 1회 투약량, 1일 투약 횟수, 총 투여일수
+2. **처방전 QR 인식 자세 및 안내 음성 출력**  
+   - 로봇의 동작은 모두 moves로 자연스럽게 연결
+   - 예:  
+      ```
+      voice: "안녕하세요 rokey약국입니다. QR을 스캔하거나 hello rokey를 말해주세요."
+      ```
 
-예시: 
-정서윤 012340-4893726
-A02X1 1 1 1
-A07FA01 1 2 1
-A02AA04 1 3 1
+3. **QR 찍기 (처방전 인식)**  
+   - 처방전 파싱 → json 코드
+   
+   <img width="600" height="300" alt="image" src="https://github.com/user-attachments/assets/1fa064a8-69eb-4dfa-a694-9cf27adfd11f" />
 
-4. 서랍 바라보는 모션
-- QR을 인식한 후 서랍 방향으로 자세 이동
+   - 예시:
+     ```json
+     {
+       "이름": "홍길동",
+       "생년": "010204",
+       "atc": "A02XA01",
+       "1회투약량": 1,
+       "1일투약횟수": 3,
+       "총투약일수": 1
+     }
+     ```
 
-5. 서랍 text 인식 후 열기
-- 처방전 ATC 코드, 이름, 증상을 딕셔너리 형태로 저장
-- YOLO로 텍스트 증상 인식
-- (x, y) 좌표를 기준으로 4개 서랍 중 하나로 이동
--
+4. **서랍 바라보는 모션**  
 
-6. 서랍 안에 바라보는 위치
-- 4개의 서랍 segmentation 좌표로 이동
+5. **서랍 text 인식 후 열기**  
+   - 처방된 ATC 코드, 이름, 증상을 딕셔너리로 저장
+   - 처방전 atc 코드 -> 증상 == yolo text 증상
+   - text 증상 (x,y) 가 4분면 중 하나 해당 -> 지정 좌표 이동
 
-7. 약 탐지
-- A02X1 1 1 1 → nexilen_tab 탐지
-- 타원형 → 2d center x, y, theta 전송
-- camera calibration → 3d 좌표로 로봇 이동
+6. **서랍 안에 바라보는 위치 조정**  
+   - 4개의 서랍 segmentation 좌표로 이동
 
-8. 약 이동 점심
-- gripper 약약 크기에 맞춰 조정
-- force control과 compliance로 약약 세밀하게 집기
-- A02X1 1 1 1 → 1번 1번 투약 1일치 → nexilan_tab(index=1/total1) → 점심 이동
-- 흔드는 모션 → 약이 잘 떨어지지 않음 방지
+7. **약 탐지**  
+   - 약 segmentation mask 적용  
+   - A02XA01 1 1 1 → nexilan_tab 탐지  
+   - 타원형: x, y, theta 추출  
+   - camera calibration 후 3D 좌표로 로봇 이동
+   - segmentation mask 사용하여 타원형 알약의 포즈 계산 (deg) -> 로봇의 6축이 해당 deg 만큼 회전 -> girp
 
-9. 약 탐지
-- A07FA01 1 2 1 → medilacsenteric_tab 탐지
-- 타원형 캡슐 → center x, y, theta 전송
-- camera calibration → 3d 좌표로 로봇 이동
+8. **약 이동 및 집음**  
+   - gripper 알약 크기에 맞춰 조정 -> force control 과 compliance로 알약 세밀하게 집기
+   - `A02X1 1 1 1 -> 1번 1번 투약 1일치`
+   - nexilan_tab( index=1/ total 1) -> 점심 이동
+   - 흔드는 모션 -> 약이 잘 떨어지지 않음 방지  
 
-10. 약 이동 아침 저녁
-- gripper 약약 크기에 맞춰 조정
-- A07FA01 1 2 1 → 1번 2번 투약 1일치 →  
-  nexilan_tab(index=1/total2) → 아침  
-  nexilan_tab(index=2/total2) → 저녁
+9. **다른 약도 반복 탐지 및 분류**
+   - A07FA01 1 2 1 -> medilacsenteric_tab 탐지
+   - 타원형 캡슐-> center x, y, theta 전송 -> camera calibration -> 3d 좌표로 로봇 이동
 
-11. 약 탐지
-- A02AA04 1 3 1 → magmil_tab 탐지
-- 원형 캡슐 → center x, y 전송 (원형은 theta 무시)
-- camera calibration → 3d 좌표로 로봇 이동
+10. **약 이동 및 집음**
+    - gripper 알약 크기에 맞춰 조정
+    - `A07FA01 1 2 1 ->1번 2번 투약 1일치`
+    - nexilan_tab( index=1/ total 2)-> 아침
+    - nexilan_tab( index=2/ total 2)-> 저녁
 
-12. 약 이동 아침 점심 저녁
-- gripper 약약 크기에 맞춰 조정
-- A02AA04 1 3 1 → 1번 3번 투약 1일치  
-  magmil_tab(index=1/total3) → 아침  
-  magmil_tab(index=2/total3) → 점심  
-  magmil_tab(index=3/total3) → 저녁
+11. **다른 약도 반복 탐지 및 분류**
+    - gripper 알약 크기에 맞춰 조정
+    - A02AA04 1 3 1 ->1번 3번 투약 1일치
+    - A02AA04 1 3 1 -> magmil_tab 탐지
+    - 원형 캡슐-> center x, y 전송 -> camera calibration -> 3d 좌표로 로봇 이동 (원형은 theta 무시)
 
-13. 선반 넣기
-- 로봇이 약약을 force control로 집음  
-→ 선반이 밑으로 내려감 → 잡고 올리기 모션 → 밀어넣기 모션
+12. **약 이동 및 집음**
+    - gripper 알약 크기에 맞춰 조정
+    - `A02AA04 1 3 1 ->1번 3번 투약 1일치`
+    - magmil_tab( index=1/ total 3)-> 아침
+    - magmil_tab( index=2/ total 3)-> 저녁
+    - magmil_tab( index=3/ total 3)-> 저녁
+      
+13. **선반 넣기**  
+    - 로봇이 약을 force control로 집음 -> 선반이 밑으로 내려가게됨  
+    - 선반을 잡고 올리기 -> 밀어넣기
 
-14. 포장 대기 상태 이동
-- 모든 약 개수 약 주격으로 이동하면 포장 상태로 이동
+14. **포장 대기 상태 이동**  
+    - 모든 약 개수 약 주걱으로 이동 후 포장 상태로 전환
 
-15. 약사가 약 포장 후 외력
-- 약사가 약 검사 & 고데기로 약 비닐 포장
-- `check_force_condition` x축 외력 감지
+15. **약사가 약 포장 후 외력 감지**
+    - 약사가 약 검사 및 약 비닐 → 외력으로 포장 완료 알림   
+    - 외력 감지 시: `check_force_condition x축 = true`  
+    - 외력 감지 후 외력 해제 
 
-16. 약 봉투로 이동 및 해당 약 설명
-- `check_force_condition` x축 외력 감지  
-- voice_nexilan_tab:  
-  “해당 약은 위염치료제이며 다른 약 복용 시 위 손상을 막아줍니다. 감사합니다. 안녕히가세요.”
+17. **약 봉투로 이동 및 설명**  
+    - 외력 해제 시 약 설명 voice 출력  
+    - 예:  
+      ```
+      voice: "nexilan_tab은 위염치료제이며 다른 약 복용시 위 손상을 막아줍니다. 아침 점심 저녁 하루 3번 복용하세요.
+             감사합니다 안녕히 가세요"
+      ```
+
   
 ## 5. 💻 코드 실행 방법
 
