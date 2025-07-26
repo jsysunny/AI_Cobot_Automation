@@ -483,14 +483,14 @@
 ## 5. 💻 코드 실행 방법
 
 ### 🤖 Robot Control Node
-- 코드: [`main_robot_control`](./rokey_project/rokey_project/main_robot_control.py)
+- 코드: [`main_robot_control`](./Rokey_Pharmacy-main/rokey_project/rokey_project/main_robot_control.py)
 
 ```bash
 ros2 run rokey_project main_robot_control
 ```
 
 ### 👁️ Vision Node (Realsense)
-- 코드: [`main_vision_realsense`](./rokey_project/rokey_project/main_vision_realsense.py)
+- 코드: [`main_vision_realsense`](./Rokey_Pharmacy-main/rokey_project/rokey_project/main_vision_realsense.py)
 
 ```bash
 ros2 run rokey_project main_vision_realsense
