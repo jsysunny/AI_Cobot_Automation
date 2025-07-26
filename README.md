@@ -498,7 +498,7 @@ ros2 run rokey_project main_vision_realsense
 
 &nbsp;
 ## 6. 📷 시연 영상 / 이미지
-> https://youtu.be/bbBvETzXTgY
+> 
 
 &nbsp;
 ## 7. 🌟 기대 효과
