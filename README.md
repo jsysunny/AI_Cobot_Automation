@@ -498,8 +498,10 @@ ros2 run rokey_project main_vision_realsense
 
 &nbsp;
 ## 7. 📷 시연 영상 / 이미지
+### 시연영상
 > https://youtu.be/qz6bvLREzT4
 
+### 발표영상
 > https://youtu.be/YkDVQ3afCMA
 
 &nbsp;
