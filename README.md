@@ -502,6 +502,10 @@ ros2 run rokey_project main_vision_realsense
 
 &nbsp;
 ## 7. 📷 시연 영상 / 이미지
+![전체사진1](https://github.com/user-attachments/assets/ec6cd797-bc9f-43ab-9255-14e0eb497982)
+
+&nbsp;
+
 ### 시연영상
 > https://youtu.be/qz6bvLREzT4
 
