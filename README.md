@@ -68,13 +68,19 @@
 - 향후 RAAPS는 스마트 병원, 무인 약국, 고령자 복약 지원 로봇 등 다양한 영역에 확대 적용 가능성이 있으며,
 특히 의료 인력 부족 및 고령화 사회 문제에 실질적인 해결책을 제시할 수 있습니다.
 
+&nbsp;
+
 [🔝 목차로 이동](#-목차)
+
 &nbsp;
 ## 2. 📘 프로젝트 수행 절차 및 방법 
 <img width="1225" height="734" alt="image" src="https://github.com/user-attachments/assets/808cfce9-ff99-4337-b135-b82a6afbee5b" />
 팀원: 백홍하, 정서윤, 정민섭, 서형원
 
+&nbsp;
+
 [🔝 목차로 이동](#-목차)
+
 &nbsp;
 ## 3. 🔧 구성 요소
 
@@ -101,8 +107,12 @@
 
 <img width="670" height="375" alt="image" src="https://github.com/user-attachments/assets/a5e5671f-8083-45bc-ba5b-1c425687560c" />
 
-[🔝 목차로 이동](#-목차)
 &nbsp;
+
+[🔝 목차로 이동](#-목차)
+
+&nbsp;
+
 ## 4. 💻 사용 기술
 
 | 기술 | 내용 |
@@ -238,8 +248,13 @@
 - **기능**:  
   - TTS(Text-to-Speech)를 통해 사용자에게 음성 안내 출력
 
-[🔝 목차로 이동](#-목차)
+
 &nbsp;
+
+[🔝 목차로 이동](#-목차)
+
+&nbsp;
+
 ## 5. 🧭 동작 흐름 요약
 <img width="740" height="276" alt="image" src="https://github.com/user-attachments/assets/164a3641-52d8-489a-9c19-20ac57fe4375" />
 
@@ -485,7 +500,10 @@
      voice: "해당 약은 해열진통제이며 진통 완화 및 열 내림 효과가 있습니다. 감사합니다 안녕히 가세요."
      ```
 
+&nbsp;
+
 [🔝 목차로 이동](#-목차)
+
 &nbsp;
 
 ## 6. 💻 코드 실행 방법
@@ -558,4 +576,5 @@ ros2 run rokey_project main_vision_realsense
 - **서형원**: 협동 로봇 기능을 잘 활용하고 추가 의견을 반영하며 팀워크 완성도 향상
 
 &nbsp;
+
 [🔝 목차로 이동](#-목차)
