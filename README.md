@@ -171,11 +171,11 @@
   - Batch size: 16  
   - IOU threshold: 0.5  
 - 성능 지표:  
-  - mAP@0.5 ≈ **0.992 ~ 0.993**  
+  - mAP@0.5 ≈ **0.90 ~ 0.92**  
 
 ###  🤧 [1. Cold]  
 - 탐지 클래스: `amoxicile_tab`, `ponstar_tab`  
-- mAP@0.5 = **0.993**
+- mAP@0.5 = **0.901**
 
 <img width="600" height="300" alt="image" src="https://github.com/user-attachments/assets/8b037393-0f9a-4d26-9057-0d45f7e7565d" />
 
@@ -185,7 +185,7 @@
 
 ### 🤕 [2.Dermatitis]  
 - 탐지 클래스: `monodoxy_cap`, `ganakan_tab`  
-- mAP@0.5 = **0.992**
+- mAP@0.5 = **0.91**
 
 <img width="600" height="300" alt="image" src="https://github.com/user-attachments/assets/307c1f0a-282a-494d-b599-4d93ee1b6a0a" />
 
@@ -196,7 +196,7 @@
 
 ### 🤢 [3.Dyspepsia]  
 - 탐지 클래스: `mogum_tab`, `medicostenter`, `nexilen_tab`  
-- mAP@0.5 = **0.992**
+- mAP@0.5 = **0.92**
 
 <img width="600" height="300" alt="image" src="https://github.com/user-attachments/assets/e7440bc4-85fe-4044-a7bc-4d44d5a025e5" />
 
@@ -206,7 +206,7 @@
 
 ### 💩 [4.Diarrhea]  
 - 탐지 클래스: `otillen_tab`, `famodine`, `somnux_scop`  
-- mAP@0.5 = **0.992**
+- mAP@0.5 = **0.902**
 
 <img width="600" height="300" alt="image" src="https://github.com/user-attachments/assets/65cdba23-eee7-4705-8c98-2864ebea89bc" />
 
